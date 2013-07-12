@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <BANK_ACCOUNT Account_Number='1234567890' Account_Balance='100.0' Account_Description='Dummy Test Account' time_stamp = '10000'/>
+</dataset>
