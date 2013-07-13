@@ -21,6 +21,7 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * User: tienhd
@@ -99,4 +100,45 @@ public class BankAccountTest
         Object obj = bankAccountDAO.findById(BankAccount.class,id);
         assertEquals(createBankAccount,obj);
     }
+
+    @Test
+    public void testRemoveAccountByAccountNumber()
+    {
+        bankAccountDAO.deleteByAccountNumber(accountNumber);
+        BankAccount bankAccount = bankAccountDAO.findByAccountNumber(accountNumber);
+        assertEquals(bankAccount,null);
+    }
+
+    @Test
+    public void testCreateNewAccountThenSaveToDB()
+    {
+        String accountNumber = "0123456789";
+        BankAccount createBankAccount = bankAccountDAO.create(accountNumber);
+
+        //get account back from db then check equals
+        BankAccount getBankAccount = bankAccountDAO.findByAccountNumber(accountNumber);
+        assertEquals(getBankAccount,createBankAccount);
+    }
+
+    @Test
+    public void testDepositedMoneyThenSaveAccountAfterTransactionToDB()
+    {
+        BankAccount getBankAccount = bankAccountDAO.findByAccountNumber(accountNumber);
+
+        double newBalance = 50 + getBankAccount.getBalance(); //150
+        bankAccountDAO.update(accountNumber, newBalance, "Deposited 50");
+
+        BankAccount savedBankAccount = bankAccountDAO.findByAccountNumber(accountNumber);
+        assertEquals(savedBankAccount.getAccountNumber(),accountNumber);
+        assertEquals(savedBankAccount.getBalance(),newBalance,0.001);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testSaveAccountWithAccountNumberContainCharacterThrowException()
+    {
+        String accountNumber = "a123456789";
+        bankAccountDAO.update("a123456789", 50, "Deposite 50");
+        fail();
+    }
+
 }
