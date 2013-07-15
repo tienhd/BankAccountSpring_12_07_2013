@@ -39,6 +39,6 @@
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
 
 
-    <bean id="bankAccountDao" class = "com.qsoft.bankaccount.persistence.dao.impl.BankAccountDAOImpl"/>
-    <!--<bean id="transactionDao" class = "com.qsoft.bankaccount.persistence.dao.impl.TransactionDAOImpl"/>-->
+    <bean id="bankaccountDao" class = "com.qsoft.bankaccount.persistence.dao.impl.BankAccountDAOImpl"/>
+    <bean id="transactionDao" class = "com.qsoft.bankaccount.persistence.dao.impl.TransactionDAOImpl"/>
 </beans>

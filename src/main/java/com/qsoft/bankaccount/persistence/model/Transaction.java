@@ -87,4 +87,50 @@ public class Transaction
         this.log = log;
     }
 
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass())
+        {
+            return false;
+        }
+
+        Transaction that = (Transaction) o;
+
+        if (Double.compare(that.amount, amount) != 0)
+        {
+            return false;
+        }
+        if (timeStamp != that.timeStamp)
+        {
+            return false;
+        }
+        if (accountNumber != null ? !accountNumber.equals(that.accountNumber) : that.accountNumber != null)
+        {
+            return false;
+        }
+        if (log != null ? !log.equals(that.log) : that.log != null)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result;
+        long temp;
+        result = accountNumber != null ? accountNumber.hashCode() : 0;
+        temp = Double.doubleToLongBits(amount);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (log != null ? log.hashCode() : 0);
+        result = 31 * result + (int) (timeStamp ^ (timeStamp >>> 32));
+        return result;
+    }
 }

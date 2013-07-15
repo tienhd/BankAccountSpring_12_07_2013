@@ -2,4 +2,6 @@
 <dataset>
     <TRANSACTION Account_Number='1234567890' Amount='20.0' Description='Deposited to Account' time_stamp = '12000'/>
     <TRANSACTION Account_Number='1234567890' Amount='-10.0' Description='Withdraw from Account' time_stamp = '15000'/>
+    <TRANSACTION Account_Number='1234567890' Amount='-10.0' Description='Withdraw from Account' time_stamp = '18000'/>
+    <TRANSACTION Account_Number='1234567890' Amount='-10.0' Description='Withdraw from Account' time_stamp = '20000'/>
 </dataset>

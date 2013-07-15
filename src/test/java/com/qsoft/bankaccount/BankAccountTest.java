@@ -133,6 +133,19 @@ public class BankAccountTest
         assertEquals(savedBankAccount.getBalance(),newBalance,0.001);
     }
 
+    @Test
+    public void testWithdrawMoneyThenSaveAccountAfterTransactionToDB()
+    {
+        BankAccount getBankAccount = bankAccountDAO.findByAccountNumber(accountNumber);
+
+        double newBalance = getBankAccount.getBalance() - 50; //50
+        bankAccountDAO.update(accountNumber, newBalance, "Deposited 50");
+
+        BankAccount savedBankAccount = bankAccountDAO.findByAccountNumber(accountNumber);
+        assertEquals(savedBankAccount.getAccountNumber(),accountNumber);
+        assertEquals(savedBankAccount.getBalance(),newBalance,0.001);
+    }
+
     @Test (expected = IllegalArgumentException.class)
     public void testSaveAccountWithAccountNumberContainCharacterThrowException()
     {
@@ -141,4 +154,11 @@ public class BankAccountTest
         fail();
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testSaveAccountWithAccountNumberLongerThan10Chars()
+    {
+        String accountNumber = "012345678999";
+        bankAccountDAO.update(accountNumber, 50, "Deposite 50");
+        fail("Exeption expected");
+    }
 }
